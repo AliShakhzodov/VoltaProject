@@ -13,7 +13,6 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Focus the search input on component mount
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -26,10 +25,10 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
   };
 
   const exampleQueries = [
-    "Show me all electronics under $500",
-    "Find books about space exploration",
-    "What outdoor gear do you have?",
-    "Show me red shoes"
+    "Show me houses under $500,000",
+    "Find properties with a garden in New York",
+    "Houses with 3 or more bedrooms",
+    "Properties with at least 2 bathrooms in London"
   ];
 
   return (
@@ -47,7 +46,7 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="What are you looking for?"
+            placeholder="What kind of property are you looking for?"
             className="flex-1 border-0 bg-transparent p-0 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
             disabled={isLoading}
           />

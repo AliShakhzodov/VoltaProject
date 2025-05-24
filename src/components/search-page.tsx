@@ -5,6 +5,7 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { ItemType } from '@/types/item';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
+import { Building } from 'lucide-react';
 
 export function SearchPage() {
   const [results, setResults] = useState<ItemType[]>([]);
@@ -63,11 +64,14 @@ export function SearchPage() {
         transition={{ duration: 0.5 }}
         className="text-center mb-12 mt-8 md:mt-16"
       >
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-          Intelligent Search
-        </h1>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Building className="h-12 w-12" />
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+            Property Search
+          </h1>
+        </div>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Ask anything in natural language and let AI find exactly what you're looking for.
+          Find your perfect property using our intelligent search. Just describe what you're looking for in natural language.
         </p>
       </motion.div>
 
