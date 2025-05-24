@@ -38,7 +38,10 @@ export async function processSearchQuery(query) {
           Do not format the SQL query and only give the plain text query. Do not format it for markdown.
           Always include LIMIT 9 at the end of queries to prevent too many results.
           Use ILIKE for case-insensitive text matching. If the user asks for size, big is bigger than 150 and small is less than 149.
-          ONLY return SELECT queries. `,
+          NEVER return DELETE queries.
+          NEVER return UPDATE queries.
+          NEVER return DROP queries.
+          ONLY return SELECT queries.`,
         },
         {
           role: "user",
@@ -69,4 +72,3 @@ export async function processSearchQuery(query) {
     throw new Error("Failed to process natural language query");
   }
 }
-
