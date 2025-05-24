@@ -1,5 +1,5 @@
-import Groq from 'groq-sdk';
-import dotenv from 'dotenv';
+import Groq from "groq-sdk";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -19,24 +19,30 @@ export async function processSearchQuery(query) {
         {
           role: "system",
           content: `You are an AI assistant that converts natural language queries to SQL. 
-          The database has a table named "items" with the following columns:
-          - id (integer)
-          - name (text)
+          The database has a table named "real_estate_properties" with the following columns:
+          - id (integer, primary key)
+          - name (text, not null)
           - description (text)
-          - category (text)
-          - price (numeric)
-          - image_url (text)
-          - surprise (text)
-          - created_at (timestamp)
+          - location_city (text, not null)
+          - location_country (text, not null)
+          - number_of_floors (integer, must be >= 0)
+          - number_of_rooms (integer, must be >= 0)
+          - number_of_baths (integer, must be >= 0)
+          - area_of_house (numeric, must be > 0)
+          - area_of_garden (numeric, optional, must be >= 0)
+          - price (numeric, must be > 0)
+          - created_at (timestamp, default to current timestamp)
+          - updated_at (timestamp, default to current timestamp)
           
           Respond ONLY with a valid PostgreSQL query. Do not include any explanations.
+          Do not format the SQL query and only give the plain text query. Do not format it for markdown.
           Always include LIMIT 9 at the end of queries to prevent too many results.
-          Use ILIKE for case-insensitive text matching.`
+          Use ILIKE for case-insensitive text matching.`,
         },
         {
           role: "user",
-          content: query
-        }
+          content: query,
+        },
       ],
       model: "llama-3.3-70b-versatile",
       temperature: 0.3,
@@ -46,19 +52,20 @@ export async function processSearchQuery(query) {
     });
 
     const sqlQuery = completion.choices[0]?.message?.content?.trim();
-    
+
     if (!sqlQuery) {
-      throw new Error('Failed to generate SQL query');
+      throw new Error("Failed to generate SQL query");
     }
 
     // Ensure the query has a LIMIT clause
-    if (!sqlQuery.toLowerCase().includes('limit')) {
+    if (!sqlQuery.toLowerCase().includes("limit")) {
       return `${sqlQuery} LIMIT 9;`;
     }
 
     return sqlQuery;
   } catch (error) {
-    console.error('Error processing query with Groq:', error);
-    throw new Error('Failed to process natural language query');
+    console.error("Error processing query with Groq:", error);
+    throw new Error("Failed to process natural language query");
   }
 }
+
