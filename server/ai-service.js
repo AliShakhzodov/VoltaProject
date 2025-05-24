@@ -37,7 +37,8 @@ export async function processSearchQuery(query) {
           Respond ONLY with a valid PostgreSQL query. Do not include any explanations.
           Do not format the SQL query and only give the plain text query. Do not format it for markdown.
           Always include LIMIT 9 at the end of queries to prevent too many results.
-          Use ILIKE for case-insensitive text matching.`,
+          Use ILIKE for case-insensitive text matching. If the user asks for size, big is bigger than 150 and small is less than 149.
+          ONLY return SELECT queries. `,
         },
         {
           role: "user",
