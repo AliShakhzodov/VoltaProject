@@ -16,7 +16,7 @@ This application demonstrates an intelligent search interface that uses AI to in
 - **Frontend**: React, TypeScript, Tailwind CSS, shadcn/ui, Framer Motion
 - **Backend**: Node.js, Express
 - **Database**: PostgreSQL (simulated for demo)
-- **AI**: OpenAI API integration (configured but not active in demo)
+- **AI**: Groq API integration (configured but not active in demo)
 
 ## Getting Started
 
